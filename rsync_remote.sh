@@ -5,6 +5,9 @@
 # Note: it rsyncs files from REMOTE target dir into local dir. So you need to
 # call this script from the dir where you want to put files into.
 #
+# 2020-08-17: added -P option to rsync to show the progress bar during the
+# transfer.
+#
 
 #------------------------------------------------------
 # inputs
@@ -66,7 +69,7 @@ cur_dir=$(pwd)
 
 print_params
 
-rsync -avz $DRYRUNCMD --no-relative --files-from=<(ssh \
+rsync -avzP $DRYRUNCMD --no-relative --files-from=<(ssh \
     $USER@$HOST "find $DIRECTORY \
     -mtime -$TIME -type f \
     -exec ls $(basename {}) \;") \
